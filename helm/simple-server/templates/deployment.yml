@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-server
+  labels:
+    app: simple-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simple-server
+  template:
+    metadata:
+      labels:
+        app: simple-server
+    spec:
+      containers:
+        - name: simple-server
+          image: "{{.Values.image.repository}}:{{.Values.image.tag}}"
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: Always
