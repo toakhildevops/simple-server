@@ -73,6 +73,6 @@ func main() {
 	}
 	log.Println("main: running simple server on port", port) // log the port we're using
 	if err := server.ListenAndServe(); err != nil {
-		log.Fatalf("main: couldn't start simple server: %v\n", err)
+		log.Fatalf("main: couldn't start simple server: %v\n", err) // log the error and exit
 	}
 }

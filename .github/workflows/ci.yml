@@ -71,23 +71,4 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/simple-server:${{ env.IMAGE_TAG }}
 
-  update-helm:
-    runs-on: ubuntu-latest
-    needs: docker
-    steps:
-        - name: Checkout repository
-          uses: actions/checkout@v4
-          with:
-            token: ${{ secrets.TOKEN }}
-
-        - name: Update tag in Helm chart
-          run: |
-            sed -i 's/tag: .*/tag: "${{github.run_id}}"/' helm/go-web-app-chart/values.yaml
-
-        - name: Commit and push changes
-          run: |
-                git config --global user.email "toakhildevops@gmail.com"
-                git config --global user.name "toakhildevops"
-                git add helm/go-web-app-chart/values.yaml
-                git commit -m "Update tag in Helm chart"
-                git push origin stage   
+ 
