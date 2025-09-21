@@ -95,6 +95,6 @@ jobs:
         run: |
           git add helm/simple-server/values.yaml
           git commit -m "Update Helm chart with image tag v${IMAGE_TAG}"
-          git push origin stage
+          git push origin HEAD:stage
         env:
           IMAGE_TAG: ${{ env.IMAGE_TAG }}        
