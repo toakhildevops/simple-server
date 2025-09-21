@@ -35,7 +35,7 @@ func index() http.Handler {
 			BusinessName string
 			Slogan       string
 		}{
-			Title:        template.HTML("Business &verbar; Landing"),
+			Title:        template.HTML("Business &verbar; Landing"), // escaping the & character
 			BusinessName: "Business,",
 			Slogan:       "we get things done.",
 		}
