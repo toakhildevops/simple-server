@@ -21,7 +21,7 @@ func TestIndex(t *testing.T) {
 	defer func() {
 		err := res.Body.Close()
 		if err != nil {
-			t.Fatalf("TestIndex: couldn't close response body: %v", err)
+			t.Fatalf("TestIndex: couldn't close response body: %v", err) // Fatalf stops execution of the test
 		}
 	}()
 
