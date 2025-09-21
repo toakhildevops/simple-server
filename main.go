@@ -58,7 +58,7 @@ func main() {
 	mux.Handle("/public/", logging(public())) // wrap the public handler with logging middleware
 	mux.Handle("/", logging(index()))
 
-	port, ok := os.LookupEnv("PORT")
+	port, ok := os.LookupEnv("PORT") // look for a PORT environment variable
 	if !ok {
 		port = "8080"
 	}
