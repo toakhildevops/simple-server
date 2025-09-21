@@ -70,8 +70,6 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/simple-server:${{ env.IMAGE_TAG }}
-          build-args: |
-            VERSION=${{ env.IMAGE_TAG }}
 
   update-helm:
     name: Update Helm Chart and Push to Repo
