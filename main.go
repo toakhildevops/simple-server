@@ -50,7 +50,7 @@ func index() http.Handler {
 
 // public serves static assets such as CSS and JavaScript to clients.
 func public() http.Handler {
-	return http.StripPrefix("/public/", http.FileServer(http.Dir("./public")))
+	return http.StripPrefix("/public/", http.FileServer(http.Dir("./public"))) // serve files out of the ./public directory
 }
 
 func main() {
