@@ -26,7 +26,7 @@ func TestIndex(t *testing.T) {
 	}()
 
 	if res.StatusCode != http.StatusOK {
-		t.Errorf("TestIndex: got status code %v, but want: %v", res.StatusCode, http.StatusOK)
+		t.Errorf("TestIndex: got status code %v, but want: %v", res.StatusCode, http.StatusOK) // Errorf allows the test to continue
 	}
 
 	body, err := ioutil.ReadAll(res.Body)
