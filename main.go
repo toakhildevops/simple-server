@@ -55,7 +55,7 @@ func public() http.Handler {
 
 func main() {
 	mux := http.NewServeMux()
-	mux.Handle("/public/", logging(public()))
+	mux.Handle("/public/", logging(public())) // wrap the public handler with logging middleware
 	mux.Handle("/", logging(index()))
 
 	port, ok := os.LookupEnv("PORT")
