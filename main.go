@@ -23,7 +23,7 @@ func logging(next http.Handler) http.Handler {
 		req := fmt.Sprintf("%s %s", r.Method, r.URL)
 		log.Println(req)
 		next.ServeHTTP(w, r)
-		log.Println(req, "completed in", time.Since().Sub(start))
+		log.Println(req, "completed in", time.Since(start))
 	})
 }
 
