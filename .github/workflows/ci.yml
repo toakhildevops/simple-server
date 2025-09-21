@@ -82,7 +82,7 @@ jobs:
 
         - name: Update tag in Helm chart
           run: |
-            sed -i 's/tag: .*/tag: "${{IMAGE_TAG}}"/' helm/simple-server/values.yaml
+            sed -i 's/tag: .*/tag: "${{env.IMAGE_TAG}}"/' helm/simple-server/values.yaml
 
         - name: Commit and push changes
           run: |

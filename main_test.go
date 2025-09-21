@@ -10,7 +10,7 @@ import (
 func TestIndex(t *testing.T) {
 	req, err := http.NewRequest(http.MethodGet, "/", nil)
 	if err != nil {
-		t.Fatalf("TestIndex: couldn't create HTTP GET request: %v", err)
+		t.Fatalf("TestIndex: couldn't create HTTP GET request: %v", err) // Fatalf stops execution of the test
 	}
 
 	rec := httptest.NewRecorder()
