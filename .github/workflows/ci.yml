@@ -3,12 +3,10 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main
-  paths-ignore:
-    - 'docs/**'
-    - '.github/**'
-    - '*.md'
-
+      - stage
+    paths-ignore:
+      - 'README.md'
+      - '.github/workflows/ci.yml'
 jobs:
   build-test:
     name: Build & Unit Test
