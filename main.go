@@ -71,7 +71,7 @@ func main() {
 		WriteTimeout: 15 * time.Second,
 		IdleTimeout:  15 * time.Second,
 	}
-	log.Println("main: running simple server on port", port)
+	log.Println("main: running simple server on port", port) // log the port we're using
 	if err := server.ListenAndServe(); err != nil {
 		log.Fatalf("main: couldn't start simple server: %v\n", err)
 	}
