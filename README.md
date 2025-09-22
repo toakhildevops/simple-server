@@ -1,134 +1,123 @@
-Go Web Application with DevOps Deployment
 
-Akhil Mohan’s Go web application: A containerized Go web app with CI/CD and Kubernetes deployment ready for production.
+🚀 GitOps Workflow with ArgoCD – Go Web App
 
-Table of Contents
 
-Project Overview
 
-Features
+A step-by-step guide to building, deploying, and managing a Go web application using GitHub Actions, Docker, Helm, ArgoCD, and AWS EKS.
 
-Installation
+Step 1: Clone the Repository
+git clone https://github.com/yourusername/go-webapp.git
+cd go-webapp
 
-Usage
+Step 2: Run Locally (Optional)
 
-DevOps & Deployment
+Make sure Go is installed locally to test the app:
 
-Directory Structure
-
-Contributing
-
-License
-
-Project Overview
-
-This project is a Go web application designed for easy deployment and DevOps automation:
-
-Built using Go for backend.
-
-Handles HTTP requests and serves APIs/pages.
-
-Fully Dockerized for containerized deployment.
-
-Automated CI/CD pipeline using GitHub Actions.
-
-Deployable on Kubernetes, AWS ECS/Fargate, or local Docker environments.
-
-Features
-
-Modular Go web app structure.
-
-RESTful API endpoints (extendable).
-
-Configurable using environment variables.
-
-Logging and metrics ready for monitoring.
-
-Ready for containerized deployment and orchestration.
-
-Installation
-Prerequisites
-
-Go 1.21+
-
-Docker
-
-Git
-
-Steps
-# Clone the repository
-git clone https://github.com/yourusername/project-name.git
-cd project-name
-
-# Run locally
 go run main.go
 
-# Build Docker image
+
+Open http://localhost:8080 in your browser.
+
+Step 3: Build Docker Image
+
+Use Docker to containerize the app. The project includes a multi-stage Dockerfile:
+
 docker build -t go-webapp:latest .
 docker run -p 8080:8080 go-webapp:latest
 
-Usage
+Step 4: Configure GitHub Actions for CI
 
-Access the app at http://localhost:8080.
+The GitHub Actions workflow does:
 
-Example API endpoints:
+Builds & unit tests the Go app.
 
-GET /api/example → Returns sample data.
+Runs golangci-lint for static code analysis.
 
-POST /api/example → Submit data to the server.
+Builds & pushes Docker images to Docker Hub with version tags.
 
-(Add your real endpoints and usage examples here.)
+No additional steps are required—just push your code and the workflow triggers automatically.
 
-DevOps & Deployment
+Step 5: Set Up Kubernetes with Helm
 
-Dockerized for container deployment.
+Install Helm:
 
-CI/CD pipeline configured with GitHub Actions: builds, tests, and pushes Docker images automatically.
-
-Kubernetes Deployment YAML provided for scaling:
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: go-webapp
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: go-webapp
-  template:
-    metadata:
-      labels:
-        app: go-webapp
-    spec:
-      containers:
-      - name: go-webapp
-        image: ghcr.io/yourusername/go-webapp:latest
-        ports:
-        - containerPort: 8080
+helm version
 
 
-Logs and metrics exposed for monitoring via Prometheus/Grafana.
+Navigate to the Helm chart folder:
 
-Can be deployed on AWS ECS/Fargate, GKE, or local minikube.
+cd helm-chart
 
-Directory Structure
-project-name/
-├── main.go           # Entry point
-├── Dockerfile        # Docker build instructions
-├── go.mod            # Go module dependencies
-├── go.sum
-├── pkg/              # Packages & modules
-├── configs/          # Configuration files
-├── k8s/              # Kubernetes YAML manifests
-└── README.md         # This file
 
-Contributing
+Deploy the app with Helm locally (for testing):
 
-Fork the repository.
+helm install go-webapp ./ --set image.tag=latest
 
-Create a new branch: git checkout -b feature/your-feature.
+Step 6: Deploy ArgoCD
 
-Make your changes and commit: git commit -m "Add feature".
+Install ArgoCD in a dedicated namespace:
 
-Push to your branch and create a Pull Request.
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+
+Access the ArgoCD UI and log in using the initial password (from the ArgoCD server pod).
+
+Step 7: Configure GitOps
+
+Connect ArgoCD to your GitHub repository.
+
+ArgoCD watches the helm-chart folder and automatically syncs any changes.
+
+On every code push:
+
+GitHub Actions builds & pushes Docker image.
+
+Helm values.yaml is updated with the new image tag.
+
+ArgoCD syncs the updated Helm chart into EKS.
+
+The app is auto-deployed with zero manual intervention.
+
+Step 8: Verify Deployment
+
+Get the Ingress hostname:
+
+kubectl get ingress -n <namespace>
+
+
+Open in a browser, you should see:
+
+“🚀 Deployed with GitOps Workflow using ArgoCD”
+
+Step 9: Optional Monitoring
+
+Use Prometheus/Grafana for metrics.
+
+Enable logs for debugging via kubectl logs.
+
+Tech Stack
+
+GoLang – Web server
+
+Docker – Containerization
+
+GitHub Actions – CI/CD automation
+
+Helm – Kubernetes packaging
+
+ArgoCD – GitOps deployment
+
+AWS EKS – Kubernetes cluster
+
+NGINX Ingress – Routing traffic
+
+Key Takeaways
+
+Fully automated GitOps workflow ensures reproducibility and visibility.
+
+CI/CD integration with GitHub Actions + Helm + ArgoCD.
+
+Production-grade practices: linting, versioning, continuous delivery.
+
+Extensible for progressive delivery, canary, or blue-green deployments.
