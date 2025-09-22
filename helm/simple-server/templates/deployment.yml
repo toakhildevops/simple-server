@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: simple-server
+  namespace: simple-server
   labels:
     app: simple-server
 spec:

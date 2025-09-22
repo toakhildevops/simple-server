@@ -31,7 +31,7 @@ func TestIndex(t *testing.T) {
 
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		t.Fatalf("TestIndex: could not read response body: %v", err)
+		t.Fatalf("TestIndex: could not read response body: %v", err) // Fatalf stops execution of the test
 	}
 
 	if len(string(body)) == 0 {
